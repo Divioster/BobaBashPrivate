@@ -1,0 +1,340 @@
+/* ==========================================================================
+   THE JOURNEY OF A KRABBY PATTY - BOTTOM-TO-TOP BUBBLE ODYSSEY
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  width: 100%;
+  background-color: #030814;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* NO BARS ANYWHERE */
+header, nav, .sidebar, .topbar {
+  display: none !important;
+}
+
+/* Continuous Underwater Background Canvas & Layers */
+.viewport-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bg-layer-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/memes/bg_krusty_night.png') no-repeat center top / cover;
+  opacity: 0.85;
+}
+
+.bg-layer-depth {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(3, 8, 20, 0.4) 0%, rgba(4, 25, 45, 0.7) 50%, rgba(2, 10, 20, 0.95) 100%);
+  mix-blend-mode: multiply;
+}
+
+#bubbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Main Odyssey Timeline (Vertical Ascent) */
+.odyssey-stream {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+  align-items: center;
+}
+
+/* Bottom Launch Zone */
+.launch-zone {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.launch-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.6), 0 4px 10px rgba(0, 0, 0, 0.9);
+}
+
+.launch-sub {
+  font-size: 1.15rem;
+  color: #e2e8f0;
+  max-width: 620px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.scroll-up-arrow {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  cursor: pointer;
+  animation: floatUp 2s infinite ease-in-out;
+  padding: 1rem 2rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+}
+
+.scroll-up-arrow span.arrow-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Zenith Top Finish */
+.zenith-zone {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.zenith-quote {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-top: 2rem;
+  text-shadow: 0 0 35px rgba(245, 158, 11, 0.8), 0 4px 15px rgba(0,0,0,0.9);
+}
+
+.zenith-author {
+  font-size: 1.25rem;
+  color: #fde68a;
+  margin-top: 1.5rem;
+  letter-spacing: 0.1em;
+}
+
+/* Story Bubble Element */
+.story-node {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+}
+
+/* Stagger positions left/right */
+.story-node:nth-child(even) {
+  transform: translateX(-40px);
+}
+.story-node:nth-child(odd) {
+  transform: translateX(40px);
+}
+
+@media (max-width: 768px) {
+  .story-node:nth-child(even),
+  .story-node:nth-child(odd) {
+    transform: translateX(0);
+  }
+}
+
+/* The Soap / Ocean Bubble Shell */
+.bubble-capsule {
+  position: relative;
+  width: clamp(260px, 45vw, 420px);
+  height: clamp(260px, 45vw, 420px);
+  border-radius: 50%;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.25) 0%, rgba(56, 189, 248, 0.12) 40%, rgba(14, 116, 144, 0.35) 85%, rgba(6, 182, 212, 0.7) 100%);
+  box-shadow: 
+    inset 0 0 30px rgba(255, 255, 255, 0.4),
+    inset 10px 15px 25px rgba(255, 255, 255, 0.6),
+    inset -10px -15px 35px rgba(2, 132, 199, 0.6),
+    0 15px 45px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(56, 189, 248, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  animation: bubbleWobble 6s infinite ease-in-out;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-node:nth-child(even) .bubble-capsule {
+  animation-duration: 7s;
+  animation-delay: -2s;
+}
+
+.story-node:nth-child(3n) .bubble-capsule {
+  animation-duration: 5.5s;
+  animation-delay: -3.5s;
+}
+
+@keyframes bubbleWobble {
+  0%, 100% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    border-radius: 53% 47% 52% 48% / 48% 54% 46% 52%;
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    border-radius: 47% 53% 48% 52% / 53% 46% 54% 47%;
+    transform: translateY(6px) rotate(-1deg);
+  }
+}
+
+.bubble-capsule:hover {
+  transform: scale(1.06) !important;
+  box-shadow: 
+    inset 0 0 40px rgba(255, 255, 255, 0.7),
+    inset 15px 20px 35px rgba(255, 255, 255, 0.9),
+    0 20px 60px rgba(0, 0, 0, 0.9),
+    0 0 60px rgba(245, 158, 11, 0.6);
+  border-color: #fde047;
+}
+
+/* Bubble Caustic Light Sheen */
+.bubble-sheen {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 28%;
+  height: 18%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 80%);
+  border-radius: 50%;
+  transform: rotate(-35deg);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Image inside the Bubble */
+.bubble-inner {
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.bubble-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.bubble-capsule:hover .bubble-img {
+  transform: scale(1.12);
+}
+
+/* Minimalist White Arial Narration */
+.bubble-text {
+  margin-top: 1.75rem;
+  max-width: 580px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.bubble-caption {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #cbd5e1;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.5;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+}
+
+/* Floating Audio Bubble in bottom corner */
+.ambient-sound-bubble {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 15px rgba(56, 189, 248, 0.4);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 100;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.ambient-sound-bubble:hover {
+  transform: scale(1.15);
+  background: rgba(56, 189, 248, 0.3);
+}
+
+.ambient-sound-bubble.active {
+  border-color: #f59e0b;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+}
