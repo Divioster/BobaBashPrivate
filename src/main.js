@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Scroll Observer for Dynamic In-View Animations
+  // 5. Scroll Observer for Dynamic In-View Animations & Center Glow Focus
   const nodes = document.querySelectorAll('.story-node, .zenith-zone, .launch-zone');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -96,4 +96,35 @@ document.addEventListener('DOMContentLoaded', () => {
   nodes.forEach(node => {
     observer.observe(node);
   });
+
+  // Center screen focal glow for current bubble
+  const focusObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const bubble = entry.target.querySelector('.bubble-capsule');
+      if (bubble) {
+        if (entry.isIntersecting) {
+          bubble.classList.add('in-focus');
+        } else {
+          bubble.classList.remove('in-focus');
+        }
+      }
+    });
+  }, {
+    rootMargin: "-25% 0px -25% 0px",
+    threshold: 0.2
+  });
+
+  nodes.forEach(node => {
+    focusObserver.observe(node);
+  });
+
+  // Gentle underwater water-drift on cursor movement
+  window.addEventListener('mousemove', (e) => {
+    const normX = (e.clientX / window.innerWidth - 0.5) * 10;
+    const normY = (e.clientY / window.innerHeight - 0.5) * 8;
+    bubbles.forEach(b => {
+      b.style.setProperty('--mouse-drift-x', `${normX}px`);
+      b.style.setProperty('--mouse-drift-y', `${normY}px`);
+    });
+  }, { passive: true });
 });
