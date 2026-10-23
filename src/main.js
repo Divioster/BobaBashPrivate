@@ -19,18 +19,15 @@ function scrollToBottomInstant() {
   }
 }
 
-// Initial immediate scroll attempt
 scrollToBottomInstant();
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initialize Ambient Underwater Bubbles Physics Canvas
   const canvas = document.getElementById('bubbleCanvas');
   let bubbleSim = null;
   if (canvas) {
     bubbleSim = new UnderwaterCanvas(canvas);
   }
 
-  // 2. Start Scroll Position at the Bottom (Launch Zone)
   scrollToBottomInstant();
   requestAnimationFrame(scrollToBottomInstant);
   setTimeout(scrollToBottomInstant, 50);
@@ -41,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollToBottomInstant();
   });
 
-  // 3. Ambient Audio Toggle in Corner Bubble
   const soundBubble = document.getElementById('soundBubble');
   if (soundBubble) {
     soundBubble.addEventListener('click', () => {
@@ -56,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Auto-enable audio on first user interaction if muted
   let hasInteractedAudio = false;
   function handleFirstInteraction() {
     if (!hasInteractedAudio) {
@@ -73,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('click', handleFirstInteraction, { once: true });
   window.addEventListener('keydown', handleFirstInteraction, { once: true });
 
-  // 4. Interactive Bubble Clicks: Pop sound + Confetti / Wobble
   const bubbles = document.querySelectorAll('.bubble-capsule');
   bubbles.forEach((b) => {
     b.addEventListener('click', () => {
@@ -83,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         b.style.transform = '';
       }, 300);
 
-      // Top bubble triggers celestial chords & celebratory golden confetti
       if (b.closest('#zenith, .zenith-zone')) {
         sound.playCelestialAscent();
         confetti({
@@ -96,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Scroll Observer for Dynamic In-View Animations & Center Glow Focus
   const nodes = document.querySelectorAll('.story-node, #zenith, .zenith-zone, #launchZone, .launch-zone');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -112,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(node);
   });
 
-  // Center screen focal glow for current bubble
   const focusObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const bubble = entry.target.querySelector('.bubble-capsule');
@@ -133,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
     focusObserver.observe(node);
   });
 
-  // Gentle underwater water-drift on cursor movement
   window.addEventListener('mousemove', (e) => {
     const normX = (e.clientX / window.innerWidth - 0.5) * 10;
     const normY = (e.clientY / window.innerHeight - 0.5) * 8;

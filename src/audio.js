@@ -1,4 +1,3 @@
-// Web Audio API Synthesizer for Cinematic Underwater & Krusty Krab Soundscapes
 class SoundEngine {
   constructor() {
     this.ctx = null;
@@ -39,18 +38,17 @@ class SoundEngine {
 
   setupAmbientDrone() {
     if (!this.ctx) return;
-    // Deep underwater sub-bass drone
+    
     const osc1 = this.ctx.createOscillator();
     const osc2 = this.ctx.createOscillator();
     const filter = this.ctx.createBiquadFilter();
     this.droneGain = this.ctx.createGain();
 
     osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(55, this.ctx.currentTime); // A1 note
+    osc1.frequency.setValueAtTime(55, this.ctx.currentTime); 
     osc2.type = 'triangle';
-    osc2.frequency.setValueAtTime(82.4, this.ctx.currentTime); // E2
+    osc2.frequency.setValueAtTime(82.4, this.ctx.currentTime); 
 
-    // Filter to simulate murky water depth
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(160, this.ctx.currentTime);
 
@@ -67,7 +65,7 @@ class SoundEngine {
 
   setupSizzleSynth() {
     if (!this.ctx) return;
-    // Pink / White noise buffer for grill sizzle
+    
     const bufferSize = this.ctx.sampleRate * 2;
     const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
     const output = noiseBuffer.getChannelData(0);
@@ -103,7 +101,7 @@ class SoundEngine {
     whiteNoise.start();
   }
 
-  setSizzleVolume(level) { // level: 0 to 1
+  setSizzleVolume(level) { 
     if (!this.ctx || this.isMuted || !this.sizzleGain) return;
     const now = this.ctx.currentTime;
     this.sizzleGain.gain.cancelScheduledValues(now);
@@ -113,7 +111,7 @@ class SoundEngine {
   playBell() {
     if (!this.ctx || this.isMuted) return;
     const now = this.ctx.currentTime;
-    // Realistic order window service bell: metallic transient + harmonic rings
+    
     const freqs = [1860, 3720, 5580];
     freqs.forEach((freq, idx) => {
       const osc = this.ctx.createOscillator();
@@ -174,7 +172,7 @@ class SoundEngine {
   playCelestialAscent() {
     if (!this.ctx || this.isMuted) return;
     const now = this.ctx.currentTime;
-    // Golden divine chord progression: F -> G -> A -> C major chime
+    
     const notes = [349.23, 440.00, 523.25, 659.25, 783.99, 1046.50];
     notes.forEach((freq, i) => {
       const osc = this.ctx.createOscillator();

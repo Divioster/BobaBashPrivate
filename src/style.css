@@ -1,7 +1,3 @@
-/* ==========================================================================
-   THE JOURNEY OF A KRABBY PATTY - BOTTOM-TO-TOP BUBBLE ODYSSEY
-   ========================================================================== */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,12 +13,10 @@ html, body {
   overflow-x: hidden;
 }
 
-/* NO BARS ANYWHERE */
 header, nav, .sidebar, .topbar {
   display: none !important;
 }
 
-/* Continuous Underwater Background Canvas & Layers */
 .viewport-bg {
   position: fixed;
   top: 0;
@@ -63,7 +57,6 @@ header, nav, .sidebar, .topbar {
   z-index: 2;
 }
 
-/* Main Odyssey Timeline (Vertical Ascent) */
 .odyssey-stream {
   position: relative;
   z-index: 10;
@@ -77,7 +70,6 @@ header, nav, .sidebar, .topbar {
   box-sizing: border-box;
 }
 
-/* Bottom Launch Zone */
 .launch-zone {
   min-height: 80vh;
   display: flex;
@@ -111,7 +103,6 @@ header, nav, .sidebar, .topbar {
   z-index: 2;
 }
 
-/* Odyssey Rows: Distinct Horizontal Alternating Lanes */
 .odyssey-row {
   width: 100%;
   display: flex;
@@ -124,19 +115,16 @@ header, nav, .sidebar, .topbar {
   justify-content: center;
 }
 
-/* Primary Story Node Left Lane */
 .odyssey-row.left-lane {
   justify-content: flex-start;
   padding-left: clamp(2rem, 14vw, 15rem);
 }
 
-/* Primary Story Node Right Lane */
 .odyssey-row.right-lane {
   justify-content: flex-end;
   padding-right: clamp(2rem, 14vw, 15rem);
 }
 
-/* Dual Lane: Side-by-side across the map width - NEVER stacked vertically */
 .odyssey-row.dual-lane {
   display: flex;
   flex-direction: row;
@@ -146,7 +134,6 @@ header, nav, .sidebar, .topbar {
   width: 100%;
 }
 
-/* Story Bubble Element */
 .story-node {
   display: flex;
   flex-direction: column;
@@ -266,7 +253,6 @@ header, nav, .sidebar, .topbar {
   }
 }
 
-/* The Soap / Ocean Bubble Shell */
 .bubble-capsule {
   position: relative;
   width: clamp(260px, 45vw, 420px);
@@ -337,7 +323,6 @@ header, nav, .sidebar, .topbar {
   border-color: #fde047;
 }
 
-/* Bubble Caustic Light Sheen */
 .bubble-sheen {
   position: absolute;
   top: 12%;
@@ -351,7 +336,6 @@ header, nav, .sidebar, .topbar {
   z-index: 10;
 }
 
-/* Image inside the Bubble: edge-to-edge with gradual circular fade to transparent border */
 .bubble-inner {
   position: absolute;
   inset: 0;
@@ -389,7 +373,6 @@ header, nav, .sidebar, .topbar {
   transform: scale(1.12);
 }
 
-/* Minimalist White Arial Narration */
 .bubble-text {
   margin-top: 1.75rem;
   max-width: 580px;
@@ -414,7 +397,6 @@ header, nav, .sidebar, .topbar {
   text-shadow: 0 2px 5px rgba(0,0,0,0.9);
 }
 
-/* Floating Audio Bubble in bottom corner */
 .ambient-sound-bubble {
   position: fixed;
   bottom: 2rem;
@@ -446,7 +428,6 @@ header, nav, .sidebar, .topbar {
   box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
 }
 
-/* Rotated Dramatic Side Stickers / Annotations */
 .dramatic-sticker {
   position: absolute;
   z-index: 20;
@@ -486,7 +467,6 @@ header, nav, .sidebar, .topbar {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* Dynamic Rotations and Positions */
 .sticker-top-right {
   top: -15px;
   right: -40px;
@@ -554,4 +534,3 @@ header, nav, .sidebar, .topbar {
     left: -6px;
   }
 }
-

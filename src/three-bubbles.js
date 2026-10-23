@@ -26,16 +26,14 @@ export class ThreeBubbleField {
   }
 
   init() {
-    // 1. Scene & Underwater Atmospheric Fog
+    
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.FogExp2(0x020b18, 0.0012);
 
-    // 2. Camera with cinematic depth
     this.camera = new THREE.PerspectiveCamera(65, this.width / this.height, 1, 3000);
     this.camera.position.z = 600;
     this.camera.position.y = 0;
 
-    // 3. WebGL Renderer
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
@@ -45,10 +43,8 @@ export class ThreeBubbleField {
     this.renderer.setSize(this.width, this.height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // 4. Create Volumetric Bubble Field
     this.createBubbleParticles();
 
-    // 5. Create Oceanic Caustic Light Rays
     this.createGodRays();
 
     window.addEventListener('resize', this.onResize);
@@ -64,10 +60,10 @@ export class ThreeBubbleField {
     const wobbles = new Float32Array(bubbleCount);
 
     for (let i = 0; i < bubbleCount; i++) {
-      // Spread across tall vertical ocean column matching scroll height
-      positions[i * 3] = (Math.random() - 0.5) * 1400;     // X
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 4000; // Y (deep vertical ocean)
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 800;  // Z depth
+      
+      positions[i * 3] = (Math.random() - 0.5) * 1400;     
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 4000; 
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 800;  
 
       scales[i] = Math.random() * 18 + 6;
       speeds[i] = Math.random() * 1.5 + 0.8;
@@ -79,7 +75,6 @@ export class ThreeBubbleField {
     geometry.setAttribute('speed', new THREE.BufferAttribute(speeds, 1));
     geometry.setAttribute('wobble', new THREE.BufferAttribute(wobbles, 1));
 
-    // Create realistic spherical bubble texture programmatically
     const texture = this.createBubbleTexture();
 
     const material = new THREE.ShaderMaterial({
@@ -98,11 +93,9 @@ export class ThreeBubbleField {
         void main() {
           vec3 pos = position;
 
-          // Buoyancy ascent
           float yOffset = mod(time * speed * 60.0 + pos.y + 2000.0, 4000.0) - 2000.0;
           pos.y = yOffset;
 
-          // Organic wobble
           pos.x += sin(time * 2.0 + wobble) * 15.0;
           pos.z += cos(time * 1.5 + wobble) * 10.0;
 
@@ -110,7 +103,6 @@ export class ThreeBubbleField {
           gl_PointSize = scale * (600.0 / -mvPosition.z);
           gl_Position = projectionMatrix * mvPosition;
 
-          // Fade bubbles at distant boundaries
           vAlpha = smoothstep(-1500.0, -100.0, mvPosition.z) * (1.0 - smoothstep(1200.0, 1800.0, abs(pos.y)));
         }
       `,
@@ -148,14 +140,12 @@ export class ThreeBubbleField {
 
     ctx.clearRect(0, 0, size, size);
 
-    // Outer iridescent rim
     ctx.beginPath();
     ctx.arc(center, center, radius, 0, Math.PI * 2);
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
     ctx.lineWidth = 3;
     ctx.stroke();
 
-    // Subtle radial wash
     const grad = ctx.createRadialGradient(center, center, radius * 0.5, center, center, radius);
     grad.addColorStop(0, 'rgba(56, 189, 248, 0.05)');
     grad.addColorStop(0.8, 'rgba(125, 211, 252, 0.2)');
@@ -163,7 +153,6 @@ export class ThreeBubbleField {
     ctx.fillStyle = grad;
     ctx.fill();
 
-    // Specular highlight gleam
     ctx.beginPath();
     ctx.arc(center - radius * 0.35, center - radius * 0.35, radius * 0.22, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
@@ -215,15 +204,10 @@ export class ThreeBubbleField {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (docHeight <= 0) return;
 
-    // Calculate normalized scroll progress: 0 at top, 1 at bottom
     const progress = Math.max(0, Math.min(1, scrollY / docHeight));
 
-    // Calculate camera target Y matching the bottom-to-top ascent
-    // Bottom (progress = 1) -> Y = -1600 (deep sea bed)
-    // Top (progress = 0) -> Y = +1600 (surface sunlight)
     this.targetCameraY = (0.5 - progress) * 3200;
 
-    // Calculate scroll velocity for dynamic water turbulence
     const delta = scrollY - this.lastScrollY;
     this.scrollVelocity = Math.min(Math.max(delta * 0.1, -15), 15);
     this.lastScrollY = scrollY;
@@ -235,11 +219,9 @@ export class ThreeBubbleField {
 
     this.updateScroll();
 
-    // Smooth camera lerp (just like the Horizon Hero prompt)
     const smoothingFactor = 0.06;
     this.currentCameraY += (this.targetCameraY - this.currentCameraY) * smoothingFactor;
 
-    // Subtle sinusoidal buoyancy sway
     const swayX = Math.sin(time * 0.4) * 12;
     const swayY = Math.cos(time * 0.6) * 8;
 
@@ -247,12 +229,10 @@ export class ThreeBubbleField {
     this.camera.position.y = this.currentCameraY + swayY;
     this.camera.lookAt(0, this.currentCameraY, 0);
 
-    // Update bubble shader time
     if (this.ambientBubbles && this.ambientBubbles.material.uniforms) {
       this.ambientBubbles.material.uniforms.time.value = time;
     }
 
-    // Subtle sway of god rays
     if (this.rays) {
       this.rays.children.forEach((ray, i) => {
         ray.rotation.z = Math.sin(time * 0.3 + i) * 0.08;

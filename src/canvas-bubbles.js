@@ -1,4 +1,3 @@
-// Canvas Underwater Ambient Bubbles & Caustic Light Rays
 export class UnderwaterCanvas {
   constructor(canvas) {
     this.canvas = canvas;
@@ -24,7 +23,6 @@ export class UnderwaterCanvas {
     window.addEventListener('resize', this.resize);
     window.addEventListener('mousemove', this.onMouseMove);
 
-    // Seed bubbles
     const bubbleCount = Math.floor(this.width / 28);
     for (let i = 0; i < bubbleCount; i++) {
       this.bubbles.push(this.createBubble(true));
@@ -63,21 +61,17 @@ export class UnderwaterCanvas {
   animate() {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
-    // Smooth mouse lerp
     this.mouseX += (this.targetMouseX - this.mouseX) * 0.05;
     this.mouseY += (this.targetMouseY - this.mouseY) * 0.05;
 
-    // Render Caustic Light Beams piercing down
     this.drawGodRays();
 
-    // Render Bubbles
     for (let i = 0; i < this.bubbles.length; i++) {
       const b = this.bubbles[i];
       b.angle += b.wobbleSpeed;
       b.y -= b.speed;
       b.x += Math.sin(b.angle) * b.wobbleAmp;
 
-      // Mouse displacement
       const dx = b.x - this.mouseX;
       const dy = b.y - this.mouseY;
       const dist = Math.sqrt(dx * dx + dy * dy);
@@ -86,18 +80,15 @@ export class UnderwaterCanvas {
         b.x += (dx / dist) * force * 3;
       }
 
-      // Draw bubble body
       this.ctx.beginPath();
       this.ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
       this.ctx.fillStyle = `rgba(180, 230, 255, ${b.opacity * 0.15})`;
       this.ctx.fill();
 
-      // Draw bubble rim
       this.ctx.strokeStyle = `rgba(220, 245, 255, ${b.opacity * 0.5})`;
       this.ctx.lineWidth = 1;
       this.ctx.stroke();
 
-      // Highlight gleam
       this.ctx.beginPath();
       this.ctx.arc(
         b.x - b.radius * 0.35,
@@ -109,7 +100,6 @@ export class UnderwaterCanvas {
       this.ctx.fillStyle = `rgba(255, 255, 255, ${b.opacity * 0.9})`;
       this.ctx.fill();
 
-      // Reset when off top
       if (b.y < -30) {
         this.bubbles[i] = this.createBubble(false);
       }

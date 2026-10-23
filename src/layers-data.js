@@ -1,4 +1,3 @@
-// Canonical Krabby Patty Anatomy and Historical Archives
 export const CANON_LAYERS = [
   {
     id: 'top-bun',

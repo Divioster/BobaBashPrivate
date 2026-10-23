@@ -5,8 +5,8 @@ export class BurgerVisualizer {
   constructor(containerId, infoPanelId) {
     this.container = document.getElementById(containerId);
     this.infoPanel = document.getElementById(infoPanelId);
-    this.layers = [...CANON_LAYERS]; // top to bottom
-    this.separation = 0; // 0 = compact sandwich, 1 = fully exploded
+    this.layers = [...CANON_LAYERS]; 
+    this.separation = 0; 
     this.selectedLayer = null;
     this.isFlipped = false;
     this.init();
@@ -16,7 +16,7 @@ export class BurgerVisualizer {
     if (!this.container) return;
     this.render();
     this.bindEvents();
-    // Default inspect the patty
+    
     this.selectLayer('patty');
   }
 
@@ -182,16 +182,15 @@ export class BurgerVisualizer {
     this.separation = Math.max(0, Math.min(1, val));
     const items = this.container.querySelectorAll('.layer-item');
     const total = items.length;
-    const maxSpacing = 52; // max distance between each layer
+    const maxSpacing = 52; 
 
     items.forEach((item, idx) => {
-      // Center index is around 4 (middle)
+      
       const center = (total - 1) / 2;
       const offsetMultiplier = (idx - center);
       const translateY = offsetMultiplier * (this.separation * maxSpacing);
       const isSelected = item.getAttribute('data-id') === this.selectedLayer;
 
-      // Calculate 3D isometric tilt
       const rotateX = 12 * (1 - this.separation * 0.3);
       const scale = isSelected ? 1.05 : 1;
 
