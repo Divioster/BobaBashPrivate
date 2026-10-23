@@ -7,6 +7,70 @@
    <meta name="description" content="The bottom-to-top underwater bubble odyssey of a single Krabby Patty.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.91em' font-size='89'>🍔</text></svg>">
  <link rel="stylesheet" href="./style.css">
+ <script>
+  var imageBackupMap = {
+   "bg_krusty_night.png": "https://files.catbox.moe/pmzt6z.png",
+  "handsome_squidward.png": "https://files.catbox.moe/x6oid9.png",
+    "harold_sip.png": "https://files.catbox.moe/bwvtv9.png",
+   "krabby_patty_holy_hand.jpg": "https://files.catbox.moe/7855zk.jpg",
+  "krabby_patty_logo.png": "https://files.catbox.moe/pbnoxp.png",
+    "krusty_grill_pov.jpg": "https://files.catbox.moe/gyknug.jpg",
+  "patrick_hook.png": "https://files.catbox.moe/rhqu7n.png",
+    "patrick_drool.png": "https://files.catbox.moe/q0dipw.png",
+   "patrick_mona_lisa.png": "https://files.catbox.moe/f9spq4.png",
+  "patrick_jug.png": "https://files.catbox.moe/2kcy21.png",
+    "patrick_evil_hands.png": "https://files.catbox.moe/203hfs.png",
+   "patrick_melted.png": "https://files.catbox.moe/28q6l6.png",
+  "plankton_meatball.png": "https://files.catbox.moe/nv0p21.png",
+    "plankton_attack.png": "https://files.catbox.moe/dgsjbk.png",
+  "patrick_shock.png": "https://files.catbox.moe/4rc6qz.png",
+    "patrick_shotgun.png": "https://files.catbox.moe/y985dl.png",
+  "patrick_monk.png": "https://files.catbox.moe/h3ytxx.png",
+    "patrick_phone.png": "https://files.catbox.moe/0eh23b.png",
+   "plankton_squashed.png": "https://files.catbox.moe/6xpf47.png",
+  "spongebob_kiss.png": "https://files.catbox.moe/7paub2.png",
+    "spongegar_primitive.png": "https://files.catbox.moe/8a17vo.png",
+  "spongebob_hoodie.png": "https://files.catbox.moe/ikzsao.png",
+    "plankton_wire.png": "https://files.catbox.moe/fgfiel.png",
+   "spongebob_clipboard_tongue.png": "https://files.catbox.moe/zj03ym.png",
+  "spongebob_npc_list.png": "https://files.catbox.moe/9gw63x.png",
+    "spongebob_squidward_face.png": "https://files.catbox.moe/tyoy9p.png",
+  "spongebob_laugh.png": "https://files.catbox.moe/gifgrz.png",
+    "spongebob_running_road.jpg": "https://files.catbox.moe/ygxq20.jpg",
+   "spongebob_pepe.png": "https://files.catbox.moe/jc8pcr.png",
+  "spongebob_void_cursed.png": "https://files.catbox.moe/0ti2zs.png",
+    "squidward_manic.png": "https://files.catbox.moe/vydxlo.png",
+   "squidward_trash.png": "https://files.catbox.moe/nxobo8.png",
+  "spongebob_water.png": "https://files.catbox.moe/7ulos8.png",
+    "squidward_car_stare.png": "https://files.catbox.moe/goy1lt.png",
+  "squidward_smug.png": "https://files.catbox.moe/wi7kwy.png",
+    "squidward_vault.png": "https://files.catbox.moe/0l6nm5.png"
+  };
+
+  window.addEventListener('error', function(ev) {
+   var target = ev.target;
+    if (target && target.tagName === 'IMG') {
+     if (target.dataset.backupTried) return;
+     target.dataset.backupTried = '1';
+     var rawSrc = target.getAttribute('src') || '';
+      var fileName = rawSrc.substring(rawSrc.lastIndexOf('/') + 1).split('?')[0];
+     if (rawSrc.indexOf('http') === 0) {
+        target.src = 'memes/' + fileName;
+     } else if (imageBackupMap[fileName]) {
+        target.src = imageBackupMap[fileName];
+     }
+    }
+  }, true);
+
+  var bgCheck = new Image();
+  bgCheck.onerror = function() {
+   var bgEl = document.querySelector('.bg-layer-stars');
+    if (bgEl) {
+     bgEl.style.backgroundImage = 'url("https://files.catbox.moe/pmzt6z.png")';
+    }
+  };
+  bgCheck.src = 'memes/bg_krusty_night.png';
+ </script>
 </head>
 
 
