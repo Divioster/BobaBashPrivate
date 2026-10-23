@@ -401,3 +401,97 @@ header, nav, .sidebar, .topbar {
   border-color: #f59e0b;
   box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
 }
+
+/* Rotated Dramatic Side Stickers / Annotations */
+.dramatic-sticker {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.dramatic-sticker:hover {
+  transform: scale(1.18) rotate(0deg) !important;
+  z-index: 25;
+}
+
+.dramatic-sticker img {
+  width: clamp(75px, 9vw, 115px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.9));
+}
+
+.dramatic-sticker .sticker-text {
+  margin-top: 0.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.72rem, 1vw, 0.85rem);
+  font-weight: 900;
+  color: #F4C95D;
+  background: rgba(3, 8, 20, 0.9);
+  border: 1px solid rgba(244, 201, 93, 0.7);
+  padding: 0.25rem 0.6rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* Dynamic Rotations and Positions */
+.sticker-top-right {
+  top: -15px;
+  right: -40px;
+  transform: rotate(14deg);
+}
+
+.sticker-top-left {
+  top: -20px;
+  left: -45px;
+  transform: rotate(-14deg);
+}
+
+.sticker-bottom-right {
+  bottom: 25px;
+  right: -55px;
+  transform: rotate(11deg);
+}
+
+.sticker-bottom-left {
+  bottom: 30px;
+  left: -55px;
+  transform: rotate(-12deg);
+}
+
+.sticker-side-right {
+  top: 30%;
+  right: -80px;
+  transform: rotate(15deg);
+}
+
+.sticker-side-left {
+  top: 25%;
+  left: -80px;
+  transform: rotate(-16deg);
+}
+
+@media (max-width: 860px) {
+  .dramatic-sticker img {
+    width: clamp(52px, 12vw, 75px);
+  }
+  .dramatic-sticker .sticker-text {
+    font-size: 0.64rem;
+    padding: 0.2rem 0.4rem;
+  }
+  .sticker-side-right, .sticker-bottom-right, .sticker-top-right {
+    right: -15px;
+  }
+  .sticker-side-left, .sticker-bottom-left, .sticker-top-left {
+    left: -15px;
+  }
+}
+
