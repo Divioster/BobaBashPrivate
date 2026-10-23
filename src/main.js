@@ -3,6 +3,25 @@ import confetti from 'canvas-confetti';
 import { sound } from './audio.js';
 import { UnderwaterCanvas } from './canvas-bubbles.js';
 
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+function scrollToBottomInstant() {
+  const launchZone = document.getElementById('launchZone');
+  if (launchZone) {
+    launchZone.scrollIntoView({ behavior: 'instant', block: 'end' });
+  } else {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'instant'
+    });
+  }
+}
+
+// Initial immediate scroll attempt
+scrollToBottomInstant();
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize Ambient Underwater Bubbles Physics Canvas
   const canvas = document.getElementById('bubbleCanvas');
@@ -12,18 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2. Start Scroll Position at the Bottom (Launch Zone)
-  function scrollToBottomInstant() {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'instant'
-    });
-  }
-
   scrollToBottomInstant();
+  requestAnimationFrame(scrollToBottomInstant);
+  setTimeout(scrollToBottomInstant, 50);
+  setTimeout(scrollToBottomInstant, 180);
+  setTimeout(scrollToBottomInstant, 400);
+
   window.addEventListener('load', () => {
     scrollToBottomInstant();
   });
-  setTimeout(scrollToBottomInstant, 150);
 
   // 3. Ambient Audio Toggle in Corner Bubble
   const soundBubble = document.getElementById('soundBubble');
@@ -68,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 300);
 
       // Top bubble triggers celestial chords & celebratory golden confetti
-      if (b.closest('.zenith-zone')) {
+      if (b.closest('#zenith, .zenith-zone')) {
         sound.playCelestialAscent();
         confetti({
           particleCount: 120,
@@ -81,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 5. Scroll Observer for Dynamic In-View Animations & Center Glow Focus
-  const nodes = document.querySelectorAll('.story-node, .zenith-zone, .launch-zone');
+  const nodes = document.querySelectorAll('.story-node, #zenith, .zenith-zone, #launchZone, .launch-zone');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {

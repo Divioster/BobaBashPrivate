@@ -15,7 +15,6 @@ html, body {
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
-  scroll-behavior: smooth;
 }
 
 /* NO BARS ANYWHERE */
@@ -192,8 +191,8 @@ header, nav, .sidebar, .topbar {
 
 @media (max-width: 860px) {
   .odyssey-stream {
-    gap: 7rem;
-    padding: 4rem 1rem 6rem;
+    gap: 6rem;
+    padding: 3.5rem 0.75rem 5rem;
   }
   .odyssey-row.left-lane {
     padding-left: 0.5rem;
@@ -206,19 +205,64 @@ header, nav, .sidebar, .topbar {
   .odyssey-row.dual-lane {
     padding: 0 0.5rem;
   }
-  .bubble-capsule {
-    width: clamp(190px, 45vw, 280px);
-    height: clamp(190px, 45vw, 280px);
+  .odyssey-row.left-lane .bubble-capsule,
+  .odyssey-row.right-lane .bubble-capsule {
+    width: clamp(190px, 54vw, 300px);
+    height: clamp(190px, 54vw, 300px);
   }
-  .bubble-capsule.side-bubble {
-    width: clamp(140px, 34vw, 190px);
-    height: clamp(140px, 34vw, 190px);
+  .odyssey-row.dual-lane .bubble-capsule {
+    width: clamp(140px, 42vw, 240px);
+    height: clamp(140px, 42vw, 240px);
+  }
+  .odyssey-row.dual-lane .bubble-capsule.side-bubble {
+    width: clamp(110px, 32vw, 175px);
+    height: clamp(110px, 32vw, 175px);
   }
   .story-node {
-    max-width: 52%;
+    max-width: 54%;
   }
   .story-node.side-node {
-    max-width: 44%;
+    max-width: 42%;
+  }
+  .bubble-text {
+    font-size: clamp(0.95rem, 3.2vw, 1.4rem);
+    margin-top: 1.2rem;
+  }
+  .story-node.side-node .bubble-text {
+    font-size: clamp(0.78rem, 2.6vw, 1.05rem);
+    margin-top: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .odyssey-stream {
+    gap: 4.5rem;
+    padding: 2.5rem 0.4rem 4rem;
+  }
+  .odyssey-row.dual-lane {
+    padding: 0 0.25rem;
+  }
+  .odyssey-row.dual-lane .bubble-capsule {
+    width: clamp(125px, 43vw, 180px);
+    height: clamp(125px, 43vw, 180px);
+  }
+  .odyssey-row.dual-lane .bubble-capsule.side-bubble {
+    width: clamp(95px, 30vw, 135px);
+    height: clamp(95px, 30vw, 135px);
+  }
+  .story-node {
+    max-width: 55%;
+  }
+  .story-node.side-node {
+    max-width: 41%;
+  }
+  .bubble-text {
+    font-size: clamp(0.85rem, 3.6vw, 1.15rem);
+    margin-top: 0.9rem;
+  }
+  .story-node.side-node .bubble-text {
+    font-size: clamp(0.7rem, 2.8vw, 0.9rem);
+    margin-top: 0.65rem;
   }
 }
 
@@ -492,6 +536,22 @@ header, nav, .sidebar, .topbar {
   }
   .sticker-side-left, .sticker-bottom-left, .sticker-top-left {
     left: -15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dramatic-sticker img {
+    width: clamp(38px, 10vw, 52px);
+  }
+  .dramatic-sticker .sticker-text {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.35rem;
+  }
+  .sticker-side-right, .sticker-bottom-right, .sticker-top-right {
+    right: -6px;
+  }
+  .sticker-side-left, .sticker-bottom-left, .sticker-top-left {
+    left: -6px;
   }
 }
 
